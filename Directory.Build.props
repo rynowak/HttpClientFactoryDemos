@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <RuntimeFrameworkVersion>2.1.0-preview1-26115-03</RuntimeFrameworkVersion>
+    <MicrosoftAspNetCoreAllPackageVersion>2.1.0-preview1-28124</MicrosoftAspNetCoreAllPackageVersion>
+    <MicrosoftAspNetWebApiClientPackageVersion>5.2.4-*</MicrosoftAspNetWebApiClientPackageVersion>
+  </PropertyGroup>
+</Project>

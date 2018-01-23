@@ -23,7 +23,7 @@ namespace ExampleServer.Controllers
         {
             if (Interlocked.Increment(ref Counter) % 2 == 0)
             {
-                await Task.Delay(5000);
+                await Task.Delay(2000);
                 return new ObjectResult(new { message = "Sorry can't help ya.", }) { StatusCode = 500 };
             }
 

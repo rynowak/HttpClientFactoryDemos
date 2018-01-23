@@ -2,12 +2,19 @@
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Hello
 {
     public class CacheHandler : DelegatingHandler
     {
+        private readonly ILogger _logger;
         private byte[] _cached;
+
+        public CacheHandler(ILogger<CacheHandler> logger)
+        {
+            _logger = logger;
+        }
 
         protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
@@ -16,8 +23,6 @@ namespace Hello
                 var response = await base.SendAsync(request, cancellationToken);
                 if (response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine("Response was successful");
-
                     var bytes = await new HttpMessageContent(response).ReadAsByteArrayAsync();
                     _cached = bytes;
 
@@ -25,7 +30,7 @@ namespace Hello
                 }
                 else if (_cached != null)
                 {
-                    Console.WriteLine("Using cached response");
+                    _logger.LogWarning("Using cached response");
                     return await DeserializeAsync(_cached);
                 }
 
@@ -33,7 +38,7 @@ namespace Hello
             }
             catch when (_cached != null)
             {
-                Console.WriteLine("Using cached response");
+                _logger.LogWarning("Using cached response");
                 return await DeserializeAsync(_cached);
             }
         }

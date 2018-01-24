@@ -12,7 +12,7 @@ namespace Server.Controllers
         [HttpGet("/")]
         public ActionResult<object> Get()
         {
-            return new { message = $"Hello from, {Environment.MachineName}", };
+            return new { message = $"Hello from, WIN", };
         }
     }
 }
